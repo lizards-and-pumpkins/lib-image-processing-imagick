@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick;
 
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidBinaryImageDataException;
@@ -25,23 +27,14 @@ class ImageMagickInscribeStrategy implements ImageProcessingStrategy
      */
     private $backgroundColor;
 
-    /**
-     * @param int $width
-     * @param int $height
-     * @param string $backgroundColor
-     */
-    public function __construct($width, $height, $backgroundColor)
+    public function __construct(int $width, int $height, string $backgroundColor)
     {
         $this->width = $width;
         $this->height = $height;
         $this->backgroundColor = $backgroundColor;
     }
 
-    /**
-     * @param string $binaryImageData
-     * @return string
-     */
-    public function processBinaryImageData($binaryImageData)
+    public function processBinaryImageData(string $binaryImageData) : string
     {
         $this->validateImageDimensions($this->width, $this->height);
         $this->validateBackgroundColor();
@@ -60,15 +53,11 @@ class ImageMagickInscribeStrategy implements ImageProcessingStrategy
         return $canvas->getImageBlob();
     }
 
-    /**
-     * @param \Imagick $image
-     * @return \Imagick
-     */
-    private function inscribeImageIntoCanvas(\Imagick $image)
+    private function inscribeImageIntoCanvas(\Imagick $image) : \Imagick
     {
         $dimensions = $image->getImageGeometry();
-        $x = ($this->width - $dimensions['width']) / 2;
-        $y = ($this->height - $dimensions['height']) / 2;
+        $x = (int) round(($this->width - $dimensions['width']) / 2);
+        $y = (int) round(($this->height - $dimensions['height']) / 2);
 
         $canvas = new \Imagick();
         $canvas->newImage($this->width, $this->height, $this->backgroundColor, $image->getImageFormat());

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick;
 
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidBinaryImageDataException;
@@ -19,21 +21,13 @@ class ImageMagickResizeStrategy implements ImageProcessingStrategy
      */
     private $height;
 
-    /**
-     * @param int $width
-     * @param int $height
-     */
-    public function __construct($width, $height)
+    public function __construct(int $width, int $height)
     {
         $this->width = $width;
         $this->height = $height;
     }
 
-    /**
-     * @param string $binaryImageData
-     * @return string
-     */
-    public function processBinaryImageData($binaryImageData)
+    public function processBinaryImageData(string $binaryImageData) : string
     {
         $this->validateImageDimensions($this->width, $this->height);
 
