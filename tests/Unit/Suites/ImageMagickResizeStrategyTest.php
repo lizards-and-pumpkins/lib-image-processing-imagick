@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick;
 
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidBinaryImageDataException;
@@ -27,10 +29,8 @@ class ImageMagickResizeStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionIsThrownIfWidthIsNotAnInteger()
     {
-        $this->expectException(InvalidImageDimensionException::class);
-        $this->expectExceptionMessage('Expected integer as image width, got string.');
-
-        (new ImageMagickResizeStrategy('foo', 1))->processBinaryImageData('');
+        $this->expectException(\TypeError::class);
+        new ImageMagickResizeStrategy('foo', 1);
     }
 
     public function testExceptionIsThrownIfWidthIsNotPositive()
@@ -43,10 +43,8 @@ class ImageMagickResizeStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionIsThrownIfHeightIsNotAnInteger()
     {
-        $this->expectException(InvalidImageDimensionException::class);
-        $this->expectExceptionMessage('Expected integer as image height, got string.');
-
-        (new ImageMagickResizeStrategy(1, 'foo'))->processBinaryImageData('');
+        $this->expectException(\TypeError::class);
+        new ImageMagickResizeStrategy(1, 'foo');
     }
 
     public function testExceptionIsThrownIfHeightIsNotPositive()

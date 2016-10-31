@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick;
 
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidBinaryImageDataException;
@@ -28,9 +30,8 @@ class ImageMagickInscribeStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionIsThrownIfWidthIsNotAnInteger()
     {
-        $this->expectException(InvalidImageDimensionException::class);
-        $this->expectExceptionMessage('Expected integer as image width, got string.');
-        (new ImageMagickInscribeStrategy('foo', 1, 'none'))->processBinaryImageData('');
+        $this->expectException(\TypeError::class);
+        new ImageMagickInscribeStrategy('foo', 1, 'none');
     }
 
     public function testExceptionIsThrownIfWidthIsNotPositive()
@@ -42,9 +43,8 @@ class ImageMagickInscribeStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionIsThrownIfHeightIsNotAnInteger()
     {
-        $this->expectException(InvalidImageDimensionException::class);
-        $this->expectExceptionMessage('Expected integer as image height, got string.');
-        (new ImageMagickInscribeStrategy(1, 'foo', 'none'))->processBinaryImageData('');
+        $this->expectException(\TypeError::class);
+        new ImageMagickInscribeStrategy(1, 'foo', 'none');
     }
 
     public function testExceptionIsThrownIfHeightIsNotPositive()
@@ -52,6 +52,13 @@ class ImageMagickInscribeStrategyTest extends \PHPUnit_Framework_TestCase
         $this->expectException(InvalidImageDimensionException::class);
         $this->expectExceptionMessage('Image height should be greater then zero, got -1.');
         (new ImageMagickInscribeStrategy(1, -1, 'none'))->processBinaryImageData('');
+    }
+
+
+    public function testExceptionIsThrownIfBackgroundColorIsNotAString()
+    {
+        $this->expectException(\TypeError::class);
+        new ImageMagickInscribeStrategy(1, 1, []);
     }
 
     public function testExceptionIsThrownIfInvalidBackgroundColorIsSpecified()
