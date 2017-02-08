@@ -7,12 +7,13 @@ namespace LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick;
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidBinaryImageDataException;
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidImageDimensionException;
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageProcessingStrategy;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick\ImageMagickResizeStrategy
  * @covers \LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick\ValidateImageDimensionsTrait
  */
-class ImageMagickResizeStrategyTest extends \PHPUnit_Framework_TestCase
+class ImageMagickResizeStrategyTest extends TestCase
 {
     protected function setUp()
     {
