@@ -8,12 +8,13 @@ use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidBina
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidColorException;
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\Exception\InvalidImageDimensionException;
 use LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageProcessingStrategy;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick\ImageMagickInscribeStrategy
  * @covers \LizardsAndPumpkins\Import\ImageStorage\ImageProcessing\ImageMagick\ValidateImageDimensionsTrait
  */
-class ImageMagickInscribeStrategyTest extends \PHPUnit_Framework_TestCase
+class ImageMagickInscribeStrategyTest extends TestCase
 {
     protected function setUp()
     {
