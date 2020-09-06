@@ -16,39 +16,39 @@ use PHPUnit\Framework\TestCase;
  */
 class ImageMagickInscribeStrategyTest extends TestCase
 {
-    protected function setUp()
+    final protected function setUp(): void
     {
         if (! extension_loaded('imagick')) {
             $this->markTestSkipped('The PHP extension imagick is not installed');
         }
     }
     
-    public function testImageProcessorStrategyInterfaceIsImplemented()
+    public function testImageProcessorStrategyInterfaceIsImplemented(): void
     {
         $strategy = new ImageMagickInscribeStrategy(1, 1, 'none');
         $this->assertInstanceOf(ImageProcessingStrategy::class, $strategy);
     }
 
-    public function testExceptionIsThrownIfWidthIsNotAnInteger()
+    public function testExceptionIsThrownIfWidthIsNotAnInteger(): void
     {
         $this->expectException(\TypeError::class);
         new ImageMagickInscribeStrategy('foo', 1, 'none');
     }
 
-    public function testExceptionIsThrownIfWidthIsNotPositive()
+    public function testExceptionIsThrownIfWidthIsNotPositive(): void
     {
         $this->expectException(InvalidImageDimensionException::class);
         $this->expectExceptionMessage('Image width should be greater then zero, got 0.');
         (new ImageMagickInscribeStrategy(0, 1, 'none'))->processBinaryImageData('');
     }
 
-    public function testExceptionIsThrownIfHeightIsNotAnInteger()
+    public function testExceptionIsThrownIfHeightIsNotAnInteger(): void
     {
         $this->expectException(\TypeError::class);
         new ImageMagickInscribeStrategy(1, 'foo', 'none');
     }
 
-    public function testExceptionIsThrownIfHeightIsNotPositive()
+    public function testExceptionIsThrownIfHeightIsNotPositive(): void
     {
         $this->expectException(InvalidImageDimensionException::class);
         $this->expectExceptionMessage('Image height should be greater then zero, got -1.');
@@ -56,25 +56,25 @@ class ImageMagickInscribeStrategyTest extends TestCase
     }
 
 
-    public function testExceptionIsThrownIfBackgroundColorIsNotAString()
+    public function testExceptionIsThrownIfBackgroundColorIsNotAString(): void
     {
         $this->expectException(\TypeError::class);
         new ImageMagickInscribeStrategy(1, 1, []);
     }
 
-    public function testExceptionIsThrownIfInvalidBackgroundColorIsSpecified()
+    public function testExceptionIsThrownIfInvalidBackgroundColorIsSpecified(): void
     {
         $this->expectException(InvalidColorException::class);
         (new ImageMagickInscribeStrategy(1, 1, 'foo'))->processBinaryImageData('');
     }
 
-    public function testExceptionIsThrownIfImageStreamIsNotValid()
+    public function testExceptionIsThrownIfImageStreamIsNotValid(): void
     {
         $this->expectException(InvalidBinaryImageDataException::class);
         (new ImageMagickInscribeStrategy(1, 1, 'none'))->processBinaryImageData('');
     }
 
-    public function testExceptionIsThrownIfImageFormatIsNotSupported()
+    public function testExceptionIsThrownIfImageFormatIsNotSupported(): void
     {
         $this->expectException(InvalidBinaryImageDataException::class);
 
@@ -83,7 +83,7 @@ class ImageMagickInscribeStrategyTest extends TestCase
         (new ImageMagickInscribeStrategy(1, 1, 'none'))->processBinaryImageData($imageStream);
     }
 
-    public function testImageIsResizedToGivenDimensions()
+    public function testImageIsResizedToGivenDimensions(): void
     {
         $requiredWidth = 15;
         $requiredHeight = 10;

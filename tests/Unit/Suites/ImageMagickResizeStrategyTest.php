@@ -15,26 +15,26 @@ use PHPUnit\Framework\TestCase;
  */
 class ImageMagickResizeStrategyTest extends TestCase
 {
-    protected function setUp()
+    final protected function setUp(): void
     {
         if (! extension_loaded('imagick')) {
             $this->markTestSkipped('The PHP extension imagick is not installed');
         }
     }
 
-    public function testImageProcessorStrategyInterfaceIsImplemented()
+    public function testImageProcessorStrategyInterfaceIsImplemented(): void
     {
         $strategy = new ImageMagickResizeStrategy(1, 1);
         $this->assertInstanceOf(ImageProcessingStrategy::class, $strategy);
     }
 
-    public function testExceptionIsThrownIfWidthIsNotAnInteger()
+    public function testExceptionIsThrownIfWidthIsNotAnInteger(): void
     {
         $this->expectException(\TypeError::class);
         new ImageMagickResizeStrategy('foo', 1);
     }
 
-    public function testExceptionIsThrownIfWidthIsNotPositive()
+    public function testExceptionIsThrownIfWidthIsNotPositive(): void
     {
         $this->expectException(InvalidImageDimensionException::class);
         $this->expectExceptionMessage('Image width should be greater then zero, got 0.');
@@ -42,13 +42,13 @@ class ImageMagickResizeStrategyTest extends TestCase
         (new ImageMagickResizeStrategy(0, 1))->processBinaryImageData('');
     }
 
-    public function testExceptionIsThrownIfHeightIsNotAnInteger()
+    public function testExceptionIsThrownIfHeightIsNotAnInteger(): void
     {
         $this->expectException(\TypeError::class);
         new ImageMagickResizeStrategy(1, 'foo');
     }
 
-    public function testExceptionIsThrownIfHeightIsNotPositive()
+    public function testExceptionIsThrownIfHeightIsNotPositive(): void
     {
         $this->expectException(InvalidImageDimensionException::class);
         $this->expectExceptionMessage('Image height should be greater then zero, got -1.');
@@ -56,14 +56,14 @@ class ImageMagickResizeStrategyTest extends TestCase
         (new ImageMagickResizeStrategy(1, -1))->processBinaryImageData('');
     }
 
-    public function testExceptionIsThrownIfImageStreamIsNotValid()
+    public function testExceptionIsThrownIfImageStreamIsNotValid(): void
     {
         $this->expectException(InvalidBinaryImageDataException::class);
 
         (new ImageMagickResizeStrategy(1, 1))->processBinaryImageData('');
     }
 
-    public function testExceptionIsThrownIfImageFormatIsNotSupported()
+    public function testExceptionIsThrownIfImageFormatIsNotSupported(): void
     {
         $this->expectException(InvalidBinaryImageDataException::class);
 
@@ -71,7 +71,7 @@ class ImageMagickResizeStrategyTest extends TestCase
         (new ImageMagickResizeStrategy(1, 1))->processBinaryImageData($imageStream);
     }
 
-    public function testImageIsResizedToGivenDimensions()
+    public function testImageIsResizedToGivenDimensions(): void
     {
         $width = 15;
         $height = 10;
